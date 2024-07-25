@@ -20,4 +20,4 @@ class RedisPool:
         return self.pool
 
     async def close_connection(self):
-        self.pool.aclose()
+        await self.pool.aclose()

@@ -18,5 +18,6 @@ async def record_in_cache(key: str, *values) -> None:
 
 async def get_from_cache(key: str) -> list:
     conn = await redis.get_connection()
-    values = (await conn.lrange(key, 0, -1))[::-1]
+    values = [i.decode('utf-8') for i in (await conn.lrange(key, 0, -1))[::-1]]
+
     return values
