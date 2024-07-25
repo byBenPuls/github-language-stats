@@ -1,0 +1,21 @@
+<svg data-testid="lang-items" x="25"></svg>
+
+<style>
+    @keyframes appear {
+        0% {
+            opacity: 0;
+            transform: scale(0);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    svg[data-testid="lang-items"] {
+        animation: appear 1s ease-in-out;
+    }
+</style>
+
+
+<script src="src/static/script.js"></script>
