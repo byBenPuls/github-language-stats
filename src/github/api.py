@@ -14,7 +14,6 @@ logger = logging.getLogger("uvicorn.info")
 
 async def fetch_repos(user: str) -> Dict:
     request = await request_client.get(f'https://api.github.com/users/{user}/repos')
-    logger.info(request)
     return request
 
 
@@ -43,7 +42,8 @@ async def get_languages_stats_from_repos(user: str) -> List:
 
     result = dict(sorted(result_list.items(), key=lambda item: item[1], reverse=True))
     response_list = [language for language, _ in result.items()][:6]
-    if response_list:
+
+    if response_list and not await in_cache(user):
         await record_in_cache(user, *response_list)
 
     return response_list
