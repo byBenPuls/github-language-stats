@@ -5,7 +5,7 @@ from starlette.responses import HTMLResponse, RedirectResponse
 
 from src.database.caching import redis
 from src.svg.card import UserData
-from src.svg.themes import themes
+from src.svg import themes
 
 
 @asynccontextmanager
