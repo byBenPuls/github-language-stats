@@ -1,17 +1,5 @@
 from xml.etree import ElementTree as Et
 
-themes = (
-    'main',
-    'gradient',
-    'dark',
-    'monokai',
-    'ambient_gradient',
-    'ocean_blue_gradient',
-    'eternal_constance_gradient',
-    'vice_city_gradient',
-    'purpink_gradient'
-)
-
 
 def css(header_fill: str = '#2f80ed',
         lang_name_fill: str = '#434d58',
