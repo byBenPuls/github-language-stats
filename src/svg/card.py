@@ -4,12 +4,11 @@ from xml.etree import ElementTree as Et
 from src.exceptions import NotFoundUserError, RequestLimitError
 from src.github.api import get_languages_stats_from_repos
 from src.svg.language import languages_group, create_language, custom_data_text
-from src.svg.themes import GradientTheme, MainTheme, DarkTheme, MonokaiTheme, AmbientGradientTheme, OceanBlueGradient, \
-    EternalConstanceGradientTheme, ViceCityGradientTheme, PurpinkGradientTheme
+from src.svg import *
 
 
 def get_colors():
-    with open('src/static/colors.json', 'r') as file:
+    with open('src/colors.json', 'r') as file:
         colors = json.load(file)
     return colors
 
@@ -18,25 +17,8 @@ data = get_colors()
 
 
 def create_svg(theme_name: str, *elements):
-    if theme_name == 'gradient':
-        card = GradientTheme(*elements).card()
-    elif theme_name == 'dark':
-        card = DarkTheme(*elements).card()
-    elif theme_name == 'monokai':
-        card = MonokaiTheme(*elements).card()
-    elif theme_name == 'ambient_gradient':
-        card = AmbientGradientTheme(*elements).card()
-    elif theme_name == 'ocean_blue_gradient':
-        card = OceanBlueGradient(*elements).card()
-    elif theme_name == 'eternal_constance_gradient':
-        card = EternalConstanceGradientTheme(*elements).card()
-    elif theme_name == 'vice_city_gradient':
-        card = ViceCityGradientTheme(*elements).card()
-    elif theme_name == 'purpink_gradient':
-        card = PurpinkGradientTheme(*elements).card()
-    else:
-        card = MainTheme(*elements).card()
-    return Et.tostring(card)
+    theme_class = themes.get(theme_name, MainTheme)
+    return Et.tostring(theme_class(*elements).card())
 
 
 class UserData:
@@ -49,7 +31,8 @@ class UserData:
         try:
             languages = await get_languages_stats_from_repos(self.username)
         except (NotFoundUserError, RequestLimitError) as e:
-            return create_svg(*languages_group(create_language(name=None, color=None,
+            return create_svg(self.theme_name,
+                              *languages_group(create_language(name=None, color=None,
                                                                special_message=custom_data_text(
                                                                    e.message))))
         # if not languages:
