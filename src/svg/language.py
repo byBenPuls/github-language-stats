@@ -8,7 +8,11 @@ def header():
     return header_
 
 
-def create_language(name: str, color: str):
+def create_language(name: str | None, color: str | None,
+                    special_message: Et.Element = None):
+    if name is None and color is None:
+        return special_message
+
     def language_name():
         element = Et.Element('text', x='15', y='10', fill='black',
                              id='lang-name')
@@ -63,33 +67,8 @@ def languages_group(*languages):
     return root
 
 
-def no_language_data():
-    root = Et.Element('g',
-                      transform="translate(0, 0)")
-
-    header_g = Et.Element("g", transform="translate(25, 35)")
-    root.append(header_g)
-
-    header_g.append(header())
-
-    main_g = Et.Element("g", transform="translate(0, 55)")
-    root.append(main_g)
-
-    svg_ = Et.Element('svg', x='25')
-    main_g.append(svg_)
-
-    g_animation = Et.Element('g', id="stagger",
-                             style=f'animation-delay: 450ms')
-
-    language_group = Et.Element('g',
-                                transform=f'translate(0, 0)')
-    g_animation.append(language_group)
-
+def custom_data_text(msg: str):
     message = Et.Element('text', x='0', y='11', fill='#434d58',
                          id='stat')
-    message.text = 'No Languages Found'
-
-    language_group.append(message)
-    svg_.append(g_animation)
-
-    return root
+    message.text = msg
+    return message
