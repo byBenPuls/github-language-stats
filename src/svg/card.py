@@ -1,10 +1,11 @@
 import json
 from xml.etree import ElementTree as Et
 
+from src.exceptions import NotFoundUserError, RequestLimitError
 from src.github.api import get_languages_stats_from_repos
 from src.svg.language import languages_group, create_language, custom_data_text
-from src.exceptions import NotFoundUserError, RequestLimitError
-from src.svg.themes import GradientTheme, MainTheme, DarkTheme, MonokaiTheme, AmbientGradientTheme
+from src.svg.themes import GradientTheme, MainTheme, DarkTheme, MonokaiTheme, AmbientGradientTheme, OceanBlueGradient, \
+    EternalConstanceGradientTheme, ViceCityGradientTheme, PurpinkGradientTheme
 
 
 def get_colors():
@@ -25,6 +26,14 @@ def create_svg(theme_name: str, *elements):
         card = MonokaiTheme(*elements).card()
     elif theme_name == 'ambient_gradient':
         card = AmbientGradientTheme(*elements).card()
+    elif theme_name == 'ocean_blue_gradient':
+        card = OceanBlueGradient(*elements).card()
+    elif theme_name == 'eternal_constance_gradient':
+        card = EternalConstanceGradientTheme(*elements).card()
+    elif theme_name == 'vice_city_gradient':
+        card = ViceCityGradientTheme(*elements).card()
+    elif theme_name == 'purpink_gradient':
+        card = PurpinkGradientTheme(*elements).card()
     else:
         card = MainTheme(*elements).card()
     return Et.tostring(card)
