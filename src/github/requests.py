@@ -1,18 +1,18 @@
 import os
 
-import httpx
+import aiohttp
 
 api_token = os.getenv('GITHUB_API_KEY')
 
 
 class HTTPClient:
-
     def __init__(self) -> None:
-        self.client = httpx.AsyncClient()
+        self.session = aiohttp.ClientSession()
 
-    async def get(self, endpoint):
-        response = await self.client.get(
-            f'{endpoint}',
+    async def get(self, url: str):
+        async with self.session.get(
+            url,
             headers={'Authorization': f'Bearer {api_token}'}
-        )
-        return response.json()
+        ) as response:
+            json = await response.json()
+            return json
