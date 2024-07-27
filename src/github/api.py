@@ -5,7 +5,7 @@ from typing import Dict, List
 
 from src.github.requests import HTTPClient
 from src.database.caching import in_cache, record_in_cache, get_from_cache
-from src.exceptions import NotFoundUserError, RequestLimitError
+from src.exceptions import *
 
 request_client = HTTPClient()
 
@@ -14,6 +14,8 @@ logger = logging.getLogger("uvicorn.info")
 
 async def fetch_repos(user: str) -> Dict:
     request = await request_client.get(f'https://api.github.com/users/{user}/repos')
+    if 'status' in request:
+        raise error_codes[request['status']]['exception']()
     return request
 
 
@@ -22,13 +24,6 @@ async def get_languages_stats_from_repos(user: str) -> List:
         return await get_from_cache(user)
 
     all_repos = await fetch_repos(user)
-    error_codes = {
-        '404': NotFoundUserError,
-        '403': RequestLimitError
-    }
-    error_code = all_repos.get('code')
-    if error_code in error_codes:
-        raise error_codes[error_code](f'{error_code} error')
 
     async def get_languages_url(repo: Dict) -> Dict:
         logger.info(f'Getting languages stats from {repo["name"]}')
