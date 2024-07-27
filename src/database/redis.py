@@ -14,7 +14,7 @@ class RedisPool:
         logger.debug('Trying to connect..')
         client = redis.ConnectionPool()
         self.pool = redis.Redis.from_pool(client)
-        logging.debug('Successfully connected!')
+        logger.debug('Successfully connected!')
 
     async def get_connection(self) -> typing.Optional[redis.Redis]:
         return self.pool
