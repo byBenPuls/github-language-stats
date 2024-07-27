@@ -20,3 +20,17 @@ class RequestLimitError(Exception):
 
     def __str__(self):
         return self.message
+
+
+error_codes: dict = {
+    '404': {
+        'message': 'User not found',
+        'exception': NotFoundUserError
+    },
+    '403': {
+        'message': 'Request limit exceeded',
+        'exception': RequestLimitError
+    }
+}
+
+__all__ = ['error_codes']
