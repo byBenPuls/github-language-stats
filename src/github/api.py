@@ -22,10 +22,13 @@ async def get_languages_stats_from_repos(user: str) -> List:
         return await get_from_cache(user)
 
     all_repos = await fetch_repos(user)
-    if 'status' in all_repos and all_repos['status'] == '404':
-        raise NotFoundUserError('No found user')
-    if 'status' in all_repos and all_repos['status'] == '403':
-        raise RequestLimitError('Request limit exceeded')
+    error_codes = {
+        '404': NotFoundUserError,
+        '403': RequestLimitError
+    }
+    error_code = all_repos.get('code')
+    if error_code in error_codes:
+        raise error_codes[error_code](f'{error_code} error')
 
     async def get_languages_url(repo: Dict) -> Dict:
         logger.info(f'Getting languages stats from {repo["name"]}')
