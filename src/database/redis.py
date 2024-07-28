@@ -3,7 +3,7 @@ import typing
 
 import redis.asyncio as redis
 
-logger = logging.getLogger("uvicorn.error")
+logger = logging.getLogger("uvicorn.info")
 
 
 class RedisPool:
@@ -11,10 +11,10 @@ class RedisPool:
         self.pool = None
 
     async def create_connection(self) -> None:
-        logger.debug('Trying to connect..')
+        logger.info('Trying to connect..')
         client = redis.ConnectionPool()
         self.pool = redis.Redis.from_pool(client)
-        logger.debug('Successfully connected!')
+        logger.info('Successfully connected!')
 
     async def get_connection(self) -> typing.Optional[redis.Redis]:
         return self.pool
