@@ -5,7 +5,7 @@ from typing import Dict, List
 
 from src.github.requests import HTTPClient
 from src.database.caching import in_cache, record_in_cache, get_from_cache
-from src.exceptions import *
+from src.exceptions import error_codes
 
 request_client = HTTPClient()
 

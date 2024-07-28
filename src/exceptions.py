@@ -32,5 +32,3 @@ error_codes: dict = {
         'exception': RequestLimitError
     }
 }
-
-__all__ = ['error_codes']
