@@ -17,7 +17,7 @@ data = get_colors()
 
 
 def create_svg(theme_name: str, *elements):
-    theme_class = themes.get(theme_name, MainTheme)
+    theme_class = themes.get(theme_name, Main)
     return Et.tostring(theme_class(*elements).card())
 
 

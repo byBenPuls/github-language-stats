@@ -1,15 +1,15 @@
-from src.svg.themes import GradientTheme, MainTheme, DarkTheme, MonokaiTheme, AmbientGradientTheme, OceanBlueGradient, \
-    EternalConstanceGradientTheme, ViceCityGradientTheme, PurpinkGradientTheme
+from src.svg.themes import Gradient, Main, Dark, Monokai, AmbientGradient, OceanBlueGradient, \
+    EternalConstanceGradient, ViceCityGradient, PurpinkGradient
 
 themes = {
-    'gradient': GradientTheme,
-    'dark': DarkTheme,
-    'monokai': MonokaiTheme,
-    'ambient_gradient': AmbientGradientTheme,
+    'gradient': Gradient,
+    'dark': Dark,
+    'monokai': Monokai,
+    'ambient_gradient': AmbientGradient,
     'ocean_blue_gradient': OceanBlueGradient,
-    'eternal_constance_gradient': EternalConstanceGradientTheme,
-    'vice_city_gradient': ViceCityGradientTheme,
-    'purpink_gradient': PurpinkGradientTheme
+    'eternal_constance_gradient': EternalConstanceGradient,
+    'vice_city_gradient': ViceCityGradient,
+    'purpink_gradient': PurpinkGradient
 }
 
-__all__ = ['themes', 'MainTheme']
+__all__ = ['themes', 'Main']
