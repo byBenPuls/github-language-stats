@@ -52,6 +52,14 @@ def css(header_fill: str = '#2f80ed',
     return style
 
 
+def create_background(x: str = '0.5', y: str = '0.5', rx: str = '4.5',
+                      height: str = '99', stroke: str = '#e4e2e2',
+                      width: str = '299', fill: str = '#fffefe', attrib: dict = None):
+    return Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x=x, y=y,
+                      rx=rx, height=f"{height}%", stroke=stroke, width=width, fill=fill,
+                      attrib=attrib)
+
+
 class BaseTheme:
     def __init__(self, *elements):
         self.elements = elements
@@ -100,11 +108,7 @@ class Main(BaseTheme):
         self.root.append(css())
 
     def background(self):
-        rect = Et.Element('rect', x='0.5', y='0.5',
-                          rx="4.5", height="99%", stroke="#e4e2e2",
-                          width="299", fill="#fffefe")
-
-        self.root.append(rect)
+        self.root.append(create_background())
 
 
 class Gradient(BaseTheme):
@@ -118,12 +122,7 @@ class Gradient(BaseTheme):
         stop2 = Et.Element('stop', offset="100%", attrib={'stop-color': "#904e95"})
         linear_gradient.append(stop1)
         linear_gradient.append(stop2)
-
-        rect = Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5",
-                          rx="4.5", height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': '1'}))
 
 
 class Dark(BaseTheme):
@@ -136,13 +135,7 @@ class Dark(BaseTheme):
         ))
 
     def background(self):
-        rect = Et.Element('rect',
-                          xmlns="http://www.w3.org/2000/svg",
-                          x="0.5", y="0.5", rx="4.5", height="99%",
-                          stroke="#e4e2e2", width="299", fill="#0D1117",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="#0D1117", attrib={'stroke-opacity': '1'}))
 
 
 class Monokai(BaseTheme):
@@ -155,73 +148,42 @@ class Monokai(BaseTheme):
         ))
 
     def background(self):
-        rect = Et.Element('rect',
-                          xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5", rx="4.5",
-                          height="99%", stroke="#e4e2e2", width="299",
-                          fill="#272822",
-                          attrib={'stroke-opacity': "1"})
-        self.root.append(rect)
+        self.root.append(create_background(fill="#272822", attrib={'stroke-opacity': '1'}))
 
 
 class AmbientGradient(BaseTheme):
     def background(self):
-
         gradient = GradientGenerator(35,
                                      (0, '#4158d0'),
                                      (50, '#c850c0'),
                                      (100, '#ffcc70')).generate()
         self.root.append(gradient)
-        rect = Et.Element('rect',
-                          xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5", rx="4.5",
-                          height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': "1"})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
 
 
 class OceanBlueGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(35, (0, '#2E3192'), (100, '#1BFFFF')).generate()
         self.root.append(gradient)
-
-        rect = Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5",
-                          rx="4.5", height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
 
 
 class EternalConstanceGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#09203F'), (95, '#537895')).generate()
         self.root.append(gradient)
-
-        rect = Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5",
-                          rx="4.5", height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
 
 
 class ViceCityGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#3494e6'), (95, '#ec6ead')).generate()
         self.root.append(gradient)
-
-        rect = Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5",
-                          rx="4.5", height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
 
 
 class PurpinkGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#7f00ff'), (95, '#e100ff')).generate()
         self.root.append(gradient)
-
-        rect = Et.Element('rect', xmlns="http://www.w3.org/2000/svg", x="0.5", y="0.5",
-                          rx="4.5", height="99%", stroke="#e4e2e2", width="299", fill="url(#gradient)",
-                          attrib={'stroke-opacity': '1'})
-
-        self.root.append(rect)
+        self.root.append(create_background(fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
