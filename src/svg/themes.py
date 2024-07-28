@@ -94,7 +94,7 @@ class GradientGenerator:
         return defs
 
 
-class MainTheme(BaseTheme):
+class Main(BaseTheme):
     def __init__(self, *elements) -> None:
         super().__init__(*elements)
         self.root.append(css())
@@ -107,7 +107,7 @@ class MainTheme(BaseTheme):
         self.root.append(rect)
 
 
-class GradientTheme(BaseTheme):
+class Gradient(BaseTheme):
     def background(self):
         defs = Et.Element('defs', xmlns="http://www.w3.org/2000/svg")
         self.root.append(defs)
@@ -126,7 +126,7 @@ class GradientTheme(BaseTheme):
         self.root.append(rect)
 
 
-class DarkTheme(BaseTheme):
+class Dark(BaseTheme):
     def __init__(self, *elements):
         super().__init__(*elements)
         self.root.append(css(
@@ -145,7 +145,7 @@ class DarkTheme(BaseTheme):
         self.root.append(rect)
 
 
-class MonokaiTheme(BaseTheme):
+class Monokai(BaseTheme):
     def __init__(self, *elements):
         super().__init__(*elements)
         self.root.append(css(
@@ -163,7 +163,7 @@ class MonokaiTheme(BaseTheme):
         self.root.append(rect)
 
 
-class AmbientGradientTheme(BaseTheme):
+class AmbientGradient(BaseTheme):
     def background(self):
 
         gradient = GradientGenerator(35,
@@ -191,7 +191,7 @@ class OceanBlueGradient(BaseTheme):
         self.root.append(rect)
 
 
-class EternalConstanceGradientTheme(BaseTheme):
+class EternalConstanceGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#09203F'), (95, '#537895')).generate()
         self.root.append(gradient)
@@ -203,7 +203,7 @@ class EternalConstanceGradientTheme(BaseTheme):
         self.root.append(rect)
 
 
-class ViceCityGradientTheme(BaseTheme):
+class ViceCityGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#3494e6'), (95, '#ec6ead')).generate()
         self.root.append(gradient)
@@ -215,7 +215,7 @@ class ViceCityGradientTheme(BaseTheme):
         self.root.append(rect)
 
 
-class PurpinkGradientTheme(BaseTheme):
+class PurpinkGradient(BaseTheme):
     def background(self):
         gradient = GradientGenerator(0, (5, '#7f00ff'), (95, '#e100ff')).generate()
         self.root.append(gradient)
