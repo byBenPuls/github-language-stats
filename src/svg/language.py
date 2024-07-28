@@ -44,24 +44,19 @@ def languages_group(*languages):
     main_g.append(svg_)
 
     animation_delay = 450
-
     t_x, t_y = 0, 0
-    counts = 0
-    for language in languages:
-        counts += 1
-        if counts > 3:
-            if counts == 4:
-                animation_delay = 450
-                t_y = 0
-            t_x = 150
-        g_animation = Et.Element('g', id="stagger", style=f'animation-delay: {animation_delay}ms')
+    for count, language in enumerate(languages, start=1):
+        if count == 4:
+            animation_delay = 450
+            t_x, t_y = 150, 0
 
+        g_animation = Et.Element('g', id="stagger", style=f'animation-delay: {animation_delay}ms')
         language_group = Et.Element('g',
                                     transform=f'translate({t_x}, {t_y})')
         g_animation.append(language_group)
-
         language_group.append(language)
         svg_.append(g_animation)
+
         t_y += 25
         animation_delay += 150
     return root
