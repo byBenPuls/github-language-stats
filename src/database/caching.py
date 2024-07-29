@@ -2,6 +2,7 @@ import time
 
 from src.database.redis import RedisPool
 
+# TODO улчше сделать классом как ты пытался сделать с клиентом. скорее всего одним
 redis = RedisPool()
 
 
