@@ -5,6 +5,7 @@ def css(header_fill: str = '#2f80ed',
         lang_name_fill: str = '#434d58',
         stat_fill: str = '#434d58'):
     style = Et.Element('style')
+    # TODO это лучше константой наверх вынести + билдить через .format(headers, ...)
     style.text = """
     #header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -92,6 +93,7 @@ class GradientGenerator:
                               gradientTransform="rotate({})".format(self.rotate),
                               gradientUnits="userSpaceOnUse")
         defs.append(gradient)
+        # TODO for some_1, some_2 in self.gradient_colors
         for i in self.gradient_colors:
             stop = Et.Element('stop', offset="{}%".format(i[0]), attrib={'stop-color': i[1]})
             gradient.append(stop)
@@ -160,7 +162,7 @@ class AmbientGradient(BaseTheme):
         self.root.append(gradient)
         self.root.append(background(width=self.width, fill="url(#gradient)", attrib={'stroke-opacity': "1"}))
 
-
+# TODO много дублирующего кода
 class OceanBlueGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
