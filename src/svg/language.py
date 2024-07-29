@@ -8,7 +8,7 @@ def header():
     return header_
 
 
-def create_language(name: str | None, color: str | None,
+def create_language(name: str = None, color: str = None,
                     special_message: Et.Element = None):
     if name is None and color is None:
         return special_message
@@ -29,7 +29,7 @@ def create_language(name: str | None, color: str | None,
     return root
 
 
-def languages_group(*languages):
+def elements_group(*languages):
     root = Et.Element('g', transform="translate(0, 0)")
 
     header_g = Et.Element("g", transform="translate(25, 35)")
