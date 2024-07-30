@@ -1,28 +1,29 @@
-import logging
-import typing
+import pickle
 
 import redis.asyncio as redis
 
-# TODO все логгеры можно сделать logging.getLogger(__name__)
-logger = logging.getLogger("uvicorn.info")
+from src.settings import settings
 
 
-class RedisPool:
+class Redis:
     def __init__(self) -> None:
-        self.pool = None
+        client = redis.ConnectionPool(host=settings.REDIS_HOST,
+                                      port=settings.REDIS_PORT,
+                                      db=settings.REDIS_DB,
+                                      password=settings.REDIS_PASSWORD)
+        self.pool = redis.Redis.from_pool(connection_pool=client)
 
-    async def create_connection(self) -> None:
-        # TODO не понятно зачем асинхронный
-        # TODO я думаю это можно в конструктор
-        logger.info('Trying to connect..')
-        client = redis.ConnectionPool()
-        self.pool = redis.Redis.from_pool(client)
-        logger.info('Successfully connected!')
+    async def in_cache(self, key: str) -> bool:
+        return bool(await self.pool.get(key))
 
-    async def get_connection(self) -> typing.Optional[redis.Redis]:
-        # TODO не понятно зачем асинхронный
-        # TODO не понятно зачем вообще)
-        return self.pool
+    async def get_from_cache(self, key: str) -> dict:
+        value = await self.pool.get(key)
+        data = pickle.loads(value)
+        return data
 
-    async def close_connection(self):
+    async def record_in_cache(self, key: str, value: dict, ex: int = 3600) -> None:
+        value = pickle.dumps(value)
+        await self.pool.set(key, value, ex=ex)
+
+    async def close_connection(self) -> None:
         await self.pool.aclose()

@@ -1,9 +1,9 @@
 # Пункты ревью
 ### Инфраструктурные
-- [ ] Добавить poetry и pyproject.toml
-- [ ] .env и Pydanti dotenv для переменных окружения 
+- [x] Добавить poetry и pyproject.toml
+- [x] .env и Pydanti dotenv для переменных окружения 
 - [ ] Добавить Docker и docker-compose.yaml для простоты 
 - [ ] Добавит Makefile (вкусовщина)
 - [ ] Добавить стандартный линтер и форматер
 
-- [ ] Убрать куда то непонятный colors.json 
+- [x] Убрать куда то непонятный colors.json 

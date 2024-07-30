@@ -11,7 +11,7 @@ logger = logging.getLogger("uvicorn.info")
 
 
 def get_colors():
-    with open('src/colors.json', 'r') as file:
+    with open('src/constants.py', 'r') as file:
         colors = json.load(file)
     return colors
 
