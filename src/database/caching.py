@@ -1,24 +1,22 @@
-import time
+from dataclasses import dataclass
 
-from src.database.redis import RedisPool
-
-# TODO улчше сделать классом как ты пытался сделать с клиентом. скорее всего одним
-redis = RedisPool()
+from src.database.redis import Redis
+from src.github.repos import ProgramLangRepo
 
 
-async def in_cache(key: str) -> bool:
-    conn = await redis.get_connection()
-    return bool(await conn.lrange(key, 0, -1))
+@dataclass
+class CachedProgramLangRepo(ProgramLangRepo):
+    cache: Redis
+    repository: ProgramLangRepo
 
+    def _key_builder(self, username: str) -> str:
+        return username
 
-async def record_in_cache(key: str, *values) -> None:
-    conn = await redis.get_connection()
-    await conn.lpush(key, *values)
-    await conn.expireat(key, int(time.time()) + 60 * 60)
+    async def fetch_lang(self, username: str) -> dict[str, float]:
+        if data := await self.cache.get_from_cache(self._key_builder(username)):
+            return data
 
+        data = await self.repository.get_languages(username)
 
-async def get_from_cache(key: str) -> list:
-    conn = await redis.get_connection()
-    values = [i.decode('utf-8') for i in (await conn.lrange(key, 0, -1))[::-1]]
-
-    return values
+        await self.cache.record_in_cache(self._key_builder(username), data)
+        return data
