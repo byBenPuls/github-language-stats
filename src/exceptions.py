@@ -10,15 +10,10 @@ class RequestLimitError(Exception):
     """
     Raised when request limit exceeded
     """
-    
+
+
 # TODO: слишком сложно
 error_codes: dict = {
-    '404': {
-        'message': 'User not found',
-        'exception': NotFoundUserError
-    },
-    '403': {
-        'message': 'Request limit exceeded',
-        'exception': RequestLimitError
-    }
+    "404": {"message": "User not found", "exception": NotFoundUserError},
+    "403": {"message": "Request limit exceeded", "exception": RequestLimitError},
 }

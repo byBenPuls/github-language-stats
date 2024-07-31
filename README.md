@@ -23,3 +23,13 @@ Example:
 |    Ocean Blue Gradient     | ![](https://github.benpuls.ru/?username=byBenPuls&theme=ocean_blue_gradient)        |
 | Eternal Constance Gradient | ![](https://github.benpuls.ru/?username=byBenPuls&theme=eternal_constance_gradient) |
 |      Purpink Gradient      | ![](https://github.benpuls.ru/?username=byBenPuls&theme=purpink_gradient)           |
+
+
+## Installation
+
+Copy `example.env` file in `.env`
+
+```shell
+cp example.env .env
+```
+

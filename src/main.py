@@ -2,16 +2,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from src.database.redis import Redis
 from src.api.routers import router
-
-
-async def get_db():
-    redis = Redis()
-    try:
-        yield redis.pool
-    finally:
-        await redis.pool.aclose()
+from src.container import get_container
+from src.database.redis import Redis
 
 
 @asynccontextmanager
@@ -20,7 +13,7 @@ async def lifespan(app: FastAPI):
     Creating connection to databases at startup and their closing at turning off
     :param app:
     """
-    await redis.create_connection()
+    redis = get_container().resolve(Redis)
     yield
     await redis.close_connection()
 
