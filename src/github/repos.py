@@ -1,6 +1,8 @@
 import asyncio
 from collections import defaultdict, Counter
 
+import httpx
+
 from src.github.requests import GitHubHTTPClient
 
 
@@ -17,10 +19,16 @@ class ProgramLangRepo:
         return dict(Counter(dict(result)).most_common(count))
 
     async def get_languages(self, username: str) -> dict[str, int]:
-        repos = await self.github.get_repos(username)
+        try:
+            repos = await self.github.get_repos(username)
+        except httpx.HTTPStatusError:
+            return {}
 
         languages_list = await asyncio.gather(
-            *[self.github.get_languages_from_repo(repo['languages_url']) for repo in repos]
+            *[
+                self.github.get_languages_from_repo(repo["languages_url"])
+                for repo in repos
+            ]
         )
 
         return self.lang_sorter(list(languages_list))
