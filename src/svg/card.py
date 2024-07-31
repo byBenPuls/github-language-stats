@@ -40,6 +40,7 @@ class UserData:
     def __init__(self, languages: dict, theme_name: str):
         self.languages = list(languages.keys())
         self.theme_name = themes.get(theme_name, Main)
+        logger.info(self.languages)
 
     async def card(self):
         # return CreateCard(theme=self.theme_name).compact_style(
@@ -51,4 +52,4 @@ class UserData:
             lang_list = [
                 create_language(special_message=custom_data_text("No languages found"))
             ]
-        return CreateCard(theme=self.theme_name).donut(*elements_group(*lang_list))
+        return CreateCard(theme=self.theme_name).compact_style(*elements_group(*lang_list))
