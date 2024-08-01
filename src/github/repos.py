@@ -13,7 +13,7 @@ class ProgramLangRepo:
     def __init__(self) -> None:
         self.github = GitHubHTTPClient()
 
-    def lang_sorter(self, langs: list, limit: int = 6) -> dict[str, int]:
+    def lang_sorter(self, langs: list, limit: int = 6) -> dict[str, int | float]:
         result = defaultdict(int)
 
         for language_response in langs:
@@ -21,7 +21,7 @@ class ProgramLangRepo:
                 result[language] += count
         return dict(Counter(dict(result)).most_common(limit))
 
-    async def get_languages(self, username: str) -> dict[str, int]:
+    async def get_languages(self, limit: int, username: str) -> dict[str, int | float]:
         try:
             repos = await self.github.get_repos(username)
 
@@ -34,6 +34,6 @@ class ProgramLangRepo:
         except (httpx.HTTPStatusError, httpx.ConnectError) as e:
             logger.info(e)
             return {}
-        langs = self.lang_sorter(list(languages_list))
+        langs = self.lang_sorter(list(languages_list), limit=limit)
         logger.info(langs)
         return langs
