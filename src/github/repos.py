@@ -24,15 +24,16 @@ class ProgramLangRepo:
     async def get_languages(self, username: str) -> dict[str, int]:
         try:
             repos = await self.github.get_repos(username)
-        except httpx.HTTPStatusError:
-            return {}
 
-        languages_list = await asyncio.gather(
-            *[
-                self.github.get_languages_from_repo(repo["languages_url"])
-                for repo in repos
-            ]
-        )
+            languages_list = await asyncio.gather(
+                *[
+                    self.github.get_languages_from_repo(repo["languages_url"])
+                    for repo in repos
+                ]
+            )
+        except (httpx.HTTPStatusError, httpx.ConnectError) as e:
+            logger.info(e)
+            return {}
         langs = self.lang_sorter(list(languages_list))
         logger.info(langs)
         return langs
