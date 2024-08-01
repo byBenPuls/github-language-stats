@@ -1,5 +1,5 @@
 # GitHub profile language statistics
- 
+
 ![](https://i.imgur.com/Tb0vwS4.gif)
 
 Link:
@@ -27,9 +27,21 @@ Example:
 
 ## Installation
 
-Copy `example.env` file in `.env`
+1. Copy `example.env` file in `.env`
 
 ```shell
 cp example.env .env
 ```
+2. Setup docker containers
 
+With make:
+
+```make
+make run
+```
+
+Without make:
+
+```
+docker-compose build && docker-compose up
+```
