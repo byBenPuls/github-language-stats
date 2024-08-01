@@ -8,7 +8,7 @@ def header():
 
 
 def create_language(
-    name: str = None, color: str = None, special_message: Et.Element = None
+    name: str | None = None, color: str | None = None, special_message: Et.Element | None = None
 ):
     if name is None and color is None:
         return special_message

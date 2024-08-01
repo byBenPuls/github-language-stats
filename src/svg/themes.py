@@ -17,7 +17,7 @@ def css(
         + """;
             animation: fadeInAnimation 0.8s ease-in-out forwards;
     }
-    
+
     @supports(-moz-appearance: auto) {
             .header { font-size: 15.5px; }
     }
@@ -39,7 +39,7 @@ def css(
         + stat_fill
         + """;
     }
-    
+
      @supports(-moz-appearance: auto) {
       #stat { font-size:13px; }
     }
@@ -119,10 +119,9 @@ class GradientGenerator:
             gradientUnits="userSpaceOnUse",
         )
         defs.append(gradient)
-        # TODO for some_1, some_2 in self.gradient_colors
-        for i in self.gradient_colors:
+        for offset, stop_color in self.gradient_colors:
             stop = Et.Element(
-                "stop", offset="{}%".format(i[0]), attrib={"stop-color": i[1]}
+                "stop", offset="{}%".format(offset), attrib={"stop-color": stop_color}
             )
             gradient.append(stop)
         return defs

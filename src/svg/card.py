@@ -52,4 +52,6 @@ class UserData:
             lang_list = [
                 create_language(special_message=custom_data_text("No languages found"))
             ]
-        return CreateCard(theme=self.theme_name).compact_style(*elements_group(*lang_list))
+        return CreateCard(theme=self.theme_name).compact_style(
+            *elements_group(*lang_list)
+        )
