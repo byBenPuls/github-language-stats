@@ -29,6 +29,7 @@ async def main_page(
         description="Background theme name",
         examples=list(themes.keys()),
     ),
+    columns: int = 2,
     db=Depends(get_db),
 ) -> Response:
     if theme not in themes:
@@ -38,9 +39,12 @@ async def main_page(
         return RedirectResponse("https://github.com/byBenPuls")
     # TODO: у тебя обработка логики и сборка свг файла происходит в одном месте. Надо делить
     # cart = await GetLangCart().execute(username)
-    languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(username)
+    languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(
+        username, 99
+    )
     # cart_svg = CartSVGBuilder().build()
-    card = await UserData(languages, theme).card()
+    columns = 2 if columns < 2 else columns
+    card = await UserData(languages, theme, columns).card()
     return HTMLResponse(
         content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
     )
