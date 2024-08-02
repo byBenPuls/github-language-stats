@@ -19,6 +19,9 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
+    """
+    Factory FastAPI
+    """
     app = FastAPI(lifespan=lifespan)
     app.include_router(router)
     return app
