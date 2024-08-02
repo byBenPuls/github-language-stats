@@ -29,7 +29,8 @@ async def main_page(
         description="Background theme name",
         examples=list(themes.keys()),
     ),
-    columns: int = 2,
+    columns: int | None = None,
+    lang_list: int | None = None
     db=Depends(get_db),
 ) -> Response:
     if theme not in themes:
@@ -43,8 +44,9 @@ async def main_page(
         username, 99
     )
     # cart_svg = CartSVGBuilder().build()
-    columns = 2 if columns < 2 else columns
-    card = await UserData(languages, theme, columns).card()
-    return HTMLResponse(
+    if columns is not None:
+        columns = 2 if columns < 2 else columns
+        card = await UserData(languages, theme, columns).card()
+        return HTMLResponse(
         content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
-    )
+        )
