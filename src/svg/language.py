@@ -19,6 +19,43 @@ class Group:
         return self.root
 
 
+class LanguagesList:
+    def __init__(self, limit: int, *languages: Et.Element) -> None:
+        self.languages = languages
+        self.limit = limit
+
+    def create(self):
+        root = Et.Element("g", transform="translate(0, 0)")
+
+        header_g = Et.Element("g", transform="translate(25, 35)")
+        root.append(header_g)
+
+        header_g.append(header())
+
+        main_g = Et.Element("g", transform="translate(0, 55)")
+        root.append(main_g)
+
+        svg_ = Et.Element("svg", x="25")
+        main_g.append(svg_)
+
+        animation_delay = 450
+        t_x, t_y = 0, 0
+        count = 0
+        for count, language in enumerate(self.languages, start=1):
+            if count == self.limit:
+                return root
+            g_animation = Et.Element(
+                "g", id="stagger", style=f"animation-delay: {animation_delay}ms"
+            )
+            language_group = Et.Element("g", transform=f"translate({t_x}, {t_y})")
+            g_animation.append(language_group)
+            language_group.append(language)
+            svg_.append(g_animation)
+
+            t_y += 25
+            animation_delay += 150
+
+
 class Languages:
     def __init__(self, columns, *languages: Et.Element) -> None:
         self.languages = languages
