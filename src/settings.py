@@ -19,7 +19,7 @@ class GitHubSettings(BaseSettings):
 class Settings(RedisSettings, GitHubSettings):
     class Config:
         case_sensitive = True
-        env_file = ".env"
+        env_file = "../.env"
 
 
 settings = Settings()
