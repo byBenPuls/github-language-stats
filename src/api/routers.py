@@ -1,14 +1,14 @@
 from http import HTTPStatus
 
 from fastapi import APIRouter, Depends, Query
-from starlette.responses import Response, RedirectResponse, HTMLResponse
+from starlette.responses import RedirectResponse, HTMLResponse
 
 from src.container import get_container
+from src.database.caching import CachedProgramLangRepo
 from src.database.redis import Redis
+from src.github.repos import ProgramLangRepo
 from src.svg import themes
 from src.svg.card import UserData
-from src.database.caching import CachedProgramLangRepo
-from src.github.repos import ProgramLangRepo
 
 router = APIRouter()
 
