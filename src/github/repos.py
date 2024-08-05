@@ -13,7 +13,8 @@ class ProgramLangRepo:
     def __init__(self) -> None:
         self.github = GitHubHTTPClient()
 
-    def lang_sorter(self, langs: list, limit: int = 6) -> dict[str, int | float]:
+    @staticmethod
+    def lang_sorter(langs: list, limit: int = 6) -> dict[str, int | float]:
         result = defaultdict(int)
 
         for language_response in langs:
