@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from fastapi import APIRouter, Depends, Query
-from starlette.responses import RedirectResponse, HTMLResponse
+from starlette.responses import RedirectResponse, HTMLResponse, Response
 
 from src.container import get_container
 from src.database.caching import CachedProgramLangRepo
@@ -19,20 +19,19 @@ def get_db():
 
 @router.get("/", description="Returns SVG card with programming languages stats")
 async def main_page(
-    username: str | None = Query(
-        default=None,
-        description="Github username. If not set, redirects to https://github.com/byBenPuls",
-    ),
-    theme: str = Query(
-        title="Theme",
-        default="main",
-        description="Background theme name",
-        examples=list(themes.keys()),
-    ),
-    columns: int | None = None,
-    lang_list: int | None = None
-    db=Depends(get_db),
-) -> Response:
+        username: str | None = Query(
+            default=None,
+            description="Github username. If not set, redirects to https://github.com/byBenPuls",
+        ),
+        theme: str = Query(
+            title="Theme",
+            default="main",
+            description="Background theme name",
+            examples=list(themes.keys()),
+        ),
+        columns: int = 2,
+        lang_list: int | None = None,
+        db=Depends(get_db)) -> Response:
     if theme not in themes:
         theme = "main"
 
@@ -48,5 +47,5 @@ async def main_page(
         columns = 2 if columns < 2 else columns
         card = await UserData(languages, theme, columns).card()
         return HTMLResponse(
-        content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
+            content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
         )
