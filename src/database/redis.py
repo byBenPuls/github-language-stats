@@ -1,5 +1,5 @@
-import pickle
 import logging
+import pickle
 
 import redis.asyncio as redis
 
