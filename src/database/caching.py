@@ -9,7 +9,8 @@ class CachedProgramLangRepo(ProgramLangRepo):
     cache: Redis
     repository: ProgramLangRepo
 
-    def _key_builder(self, username: str) -> str:
+    @staticmethod
+    def _key_builder(username: str) -> str:
         return username
 
     async def fetch_lang(self, username: str, limit: int) -> dict[str, int | float]:
