@@ -30,6 +30,7 @@ async def main_page(
             examples=list(themes.keys()),
         ),
         columns: int = Query(
+            title="Count of columns",
             default=2,
             ge=2,
             le=10
