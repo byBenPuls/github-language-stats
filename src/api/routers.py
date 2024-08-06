@@ -19,24 +19,20 @@ def get_db():
 
 @router.get("/", description="Returns SVG card with programming languages stats")
 async def main_page(
-        username: str | None = Query(
-            default=None,
-            description="Github username. If not set, redirects to https://github.com/byBenPuls",
-        ),
-        theme: str = Query(
-            title="Theme",
-            default="main",
-            description="Background theme name",
-            examples=list(themes.keys()),
-        ),
-        columns: int = Query(
-            title="Count of columns",
-            default=2,
-            ge=2,
-            le=10
-        ),
-        lang_list: int | None = None,
-        db=Depends(get_db)) -> Response:
+    username: str | None = Query(
+        default=None,
+        description="Github username. If not set, redirects to https://github.com/byBenPuls",
+    ),
+    theme: str = Query(
+        title="Theme",
+        default="main",
+        description="Background theme name",
+        examples=list(themes.keys()),
+    ),
+    columns: int = Query(title="Count of columns", default=2, ge=2, le=10),
+    lang_list: int | None = None,
+    db=Depends(get_db),
+) -> Response:
     if theme not in themes:
         theme = "main"
 
@@ -44,7 +40,9 @@ async def main_page(
         return RedirectResponse("https://github.com/byBenPuls")
     # TODO: у тебя обработка логики и сборка свг файла происходит в одном месте. Надо делить
     # cart = await GetLangCart().execute(username)
-    languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(username, None)
+    languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(
+        username, None
+    )
     # cart_svg = CartSVGBuilder().build()
     card = await UserData(languages, theme, columns).card()
     return HTMLResponse(
