@@ -17,7 +17,7 @@ class GitHubHTTPClient:
         response.raise_for_status()
         return response.json()
 
-    async def get_repos(self, username: str) -> list[dict]:
+    async def get_all_repos_of_user(self, username: str) -> list[dict]:
         return await self.get(f"https://api.github.com/users/{username}/repos")
 
     async def get_languages_from_repo(self, repo_url: str) -> dict:
