@@ -34,10 +34,11 @@ def css(
     }
 
     #stat {
-        font: 700 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
+        font: 700 16px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
         fill: """
         + stat_fill
         + """;
+        animation: fadeInAnimation 0.5s ease-in-out forwards;
     }
 
      @supports(-moz-appearance: auto) {
