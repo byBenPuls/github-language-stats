@@ -13,7 +13,7 @@ logger = logging.getLogger("uvicorn.info")
 
 
 class CreateCard:
-    def __init__(self, theme, count_columns: int) -> None:
+    def __init__(self, theme, count_columns: int = 2) -> None:
         self.theme = theme
         self.columns = count_columns
 
@@ -55,10 +55,10 @@ class UserData:
         #                                     special_message=custom_data_text(
         #                                         e.message))))
         lang_list = [create_language(i, COLORS[i]["color"]) for i in self.languages]
+        main_card = CreateCard(theme=self.theme_name, count_columns=self.columns)
+
         if not lang_list:
-            lang_list = [
-                create_language(special_message=custom_data_text("No languages found"))
-            ]
-        return CreateCard(
-            theme=self.theme_name, count_columns=self.columns
-        ).compact_style(Languages(self.columns, *lang_list).group(columns=self.columns))
+            return main_card.compact_style(custom_data_text("No languages found :("))
+        return main_card.compact_style(
+            Languages(self.columns, *lang_list).group(columns=self.columns)
+        )
