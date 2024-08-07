@@ -1,22 +1,16 @@
+import logging
 from xml.etree import ElementTree as Et
+from src.svg.utils import Element
+
+
+logger = logging.getLogger("uvicorn.info")
 
 
 def header():
-    header_element = Et.Element("text", x="0", y="0", fill="black", id="header")
-    header_element.text = "Most Used Languages"
-    return header_element
-
-
-class Group:
-    def __init__(self, attrib: dict[str, str] = {}, **extra: str) -> None:
-        self.attrib = attrib
-        self.extra = extra
-
-    def build(self, *elements):
-        self.root = Et.Element("g", attrib=self.attrib, **self.extra)
-        for element in elements:
-            self.root.append(element)
-        return self.root
+    el_header = Element("text", x="0", y="0", fill="black", id="header")
+    el_header.text = "Most Used Languages"
+    logger.info(el_header)
+    return el_header.render()
 
 
 class LanguagesList:
