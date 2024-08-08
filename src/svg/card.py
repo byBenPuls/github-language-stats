@@ -4,9 +4,9 @@ from xml.etree import ElementTree as Et
 from src.constants import COLORS
 from src.svg import themes, Main
 from src.svg.language import (
-    create_language,
+    Language,
     custom_data_text,
-    Languages,
+    LanguagesGroup,
 )
 
 logger = logging.getLogger("uvicorn.info")
@@ -54,11 +54,13 @@ class UserData:
         #     *elements_group(create_language(name=None, color=None,
         #                                     special_message=custom_data_text(
         #                                         e.message))))
-        lang_list = [create_language(i, COLORS[i]["color"]) for i in self.languages]
+        lang_list = [
+            Language(lang, COLORS[lang]["color"]).render() for lang in self.languages
+        ]
         main_card = CreateCard(theme=self.theme_name, count_columns=self.columns)
 
         if not lang_list:
             return main_card.compact_style(custom_data_text("No languages found :("))
         return main_card.compact_style(
-            Languages(self.columns, *lang_list).group(columns=self.columns)
+            LanguagesGroup(self.columns, *lang_list).render(columns=self.columns)
         )
