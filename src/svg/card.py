@@ -3,8 +3,9 @@ from xml.etree import ElementTree as Et
 
 from src.constants import COLORS
 from src.svg import themes, Main
+from src.svg.elements import Element
 from src.svg.language import (
-    Language,
+    LanguageLabel,
     custom_data_text,
     LanguagesGroup,
 )
@@ -12,14 +13,17 @@ from src.svg.language import (
 logger = logging.getLogger("uvicorn.info")
 
 
-class CreateCard:
+class ComposeCard:
     def __init__(self, theme, count_columns: int = 2) -> None:
         self.theme = theme
         self.columns = count_columns
 
-    def __render(self, width, height, view_box, *elements):
-        root = Et.Element(
-            "svg",
+    def __render(self, width: str, height: str, view_box: str, *elements: Element) -> bytes:
+        theme_elements = (i for i in self.theme(width=width).card())
+        root = Element(
+            *theme_elements,
+            *elements,
+            tag="svg",
             xmlns="http://www.w3.org/2000/svg",
             width=width,
             height=height,
@@ -27,40 +31,29 @@ class CreateCard:
             fill="none",
             role="img",
         )
-        for i in self.theme(width=width).card():
-            logger.info(i)
-            root.append(i)
-        for i in elements:
-            root.append(i)
         return Et.tostring(root)
 
-    def compact_style(self, *languages_data: Et.Element):
+    def visualize(self, *languages_data: Et.Element) -> bytes:
         width = 150 * self.columns
         return self.__render(str(width), "140", f"0 0 {width} 140", *languages_data)
 
-    def donut(self, *languages_data: Et.Element):
-        return self.__render("450", "140", "0 0 450 140", *languages_data)
-
 
 class UserData:
-    def __init__(self, languages: dict, theme_name: str, columns: int):
+    def __init__(self, languages: dict, theme_name: str, columns: int) -> None:
         self.languages = list(languages.keys())
         self.theme_name = themes.get(theme_name, Main)
         self.columns = columns
         logger.info(self.languages)
 
-    async def card(self):
-        # return CreateCard(theme=self.theme_name).compact_style(
-        #     *elements_group(create_language(name=None, color=None,
-        #                                     special_message=custom_data_text(
-        #                                         e.message))))
+    async def card(self) -> bytes:
         lang_list = [
-            Language(lang, COLORS[lang]["color"]).render() for lang in self.languages
+            LanguageLabel(lang, COLORS[lang]["color"]).build()
+            for lang in self.languages
         ]
-        main_card = CreateCard(theme=self.theme_name, count_columns=self.columns)
+        main_card = ComposeCard(theme=self.theme_name, count_columns=self.columns)
 
         if not lang_list:
-            return main_card.compact_style(custom_data_text("No languages found :("))
-        return main_card.compact_style(
-            LanguagesGroup(self.columns, *lang_list).render(columns=self.columns)
+            return main_card.visualize(custom_data_text("No languages found :("))
+        return main_card.visualize(
+            LanguagesGroup(self.columns, *lang_list).build().render()
         )
