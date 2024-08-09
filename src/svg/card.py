@@ -54,6 +54,6 @@ class UserData:
         main_card = ComposeCard(theme=self.theme_name, count_columns=self.columns)
 
         if not lang_list:
-            logger.info('Languages not found')
+            logger.info("Languages not found")
             return main_card.visualize(custom_data_text("No languages found :("))
         return main_card.visualize(LanguagesGroup(self.columns, *lang_list).build())
