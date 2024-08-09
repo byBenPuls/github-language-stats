@@ -13,7 +13,9 @@ class CachedProgramLangRepo(ProgramLangRepo):
     def _key_builder(username: str) -> str:
         return username
 
-    async def fetch_lang(self, username: str, limit: int) -> dict[str, int | float]:
+    async def fetch_lang(
+        self, username: str, limit: int | None = None
+    ) -> dict[str, int | float]:
         if data := await self.cache.get_from_cache(self._key_builder(username)):
             return data
 
