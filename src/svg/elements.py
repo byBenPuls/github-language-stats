@@ -1,7 +1,4 @@
-import logging
 from xml.etree import ElementTree as Et
-
-logger = logging.getLogger("uvicorn.info")
 
 
 class Element:
@@ -24,7 +21,6 @@ class Element:
         self.text: str | None = None
 
     def render(self) -> Et.Element:
-        logger.info(self)
         self.element = Et.Element(self.tag, self.attrib, **self.extra)
         for sub_element in self.sub_elements:
             if isinstance(sub_element, Element):
