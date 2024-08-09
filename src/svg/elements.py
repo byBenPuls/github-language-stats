@@ -1,5 +1,7 @@
 from xml.etree import ElementTree as Et
 
+from src.exceptions import NotElementClassError, EmptyElementTagError
+
 
 class Element:
     def __init__(
@@ -11,7 +13,7 @@ class Element:
     ) -> None:
         self.element = None
         if tag is None:
-            raise ValueError("tag cannot be None")
+            raise EmptyElementTagError
         if attrib is None:
             attrib = {}
         self.tag = tag
@@ -25,8 +27,10 @@ class Element:
         for sub_element in self.sub_elements:
             if isinstance(sub_element, Element):
                 sub_element = sub_element.render()
-            else:
+            elif isinstance(sub_element, Et.Element):
                 sub_element = sub_element
+            else:
+                raise NotElementClassError
             self.element.append(sub_element)
         if self.text:
             self.element.text = self.text
