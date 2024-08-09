@@ -14,3 +14,7 @@ class RequestLimitError(Exception):
 
 class NotElementClassError(Exception):
     pass
+
+
+class EmptyElementTagError(Exception):
+    pass
