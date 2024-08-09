@@ -18,7 +18,7 @@ class ComposeCard:
         self.theme = theme
         self.columns = count_columns
 
-    def __render(
+    def _render(
         self, width: str, height: str, view_box: str, *elements: Element
     ) -> bytes:
         theme_elements = (i for i in self.theme(width=width).card())
@@ -37,7 +37,7 @@ class ComposeCard:
 
     def visualize(self, *languages_data: Et.Element) -> bytes:
         width = 150 * self.columns
-        return self.__render(str(width), "140", f"0 0 {width} 140", *languages_data)
+        return self._render(str(width), "140", f"0 0 {width} 140", *languages_data)
 
 
 class UserData:
@@ -45,7 +45,6 @@ class UserData:
         self.languages = list(languages.keys())
         self.theme_name = themes.get(theme_name, Main)
         self.columns = columns
-        logger.info(self.languages)
 
     async def card(self) -> bytes:
         lang_list = [
@@ -55,7 +54,6 @@ class UserData:
         main_card = ComposeCard(theme=self.theme_name, count_columns=self.columns)
 
         if not lang_list:
+            logger.info('Languages not found')
             return main_card.visualize(custom_data_text("No languages found :("))
-        return main_card.visualize(
-            LanguagesGroup(self.columns, *lang_list).build()
-        )
+        return main_card.visualize(LanguagesGroup(self.columns, *lang_list).build())
