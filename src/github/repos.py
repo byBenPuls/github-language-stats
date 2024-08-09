@@ -15,7 +15,7 @@ class ProgramLangRepo:
 
     @staticmethod
     def lang_sorter(
-        langs: list, numbers_of_languages_limiter: int | None = 6
+        langs: list | tuple, numbers_of_languages_limiter: int | None = 6
     ) -> dict[str, int | float]:
         """
         :param langs: languages list
@@ -34,16 +34,16 @@ class ProgramLangRepo:
             repos = await self.github_http_client.get_all_repos_of_user(username)
 
             languages_list = await asyncio.gather(
-                *[
+                *(
                     self.github_http_client.get_languages_from_repo(
                         repo["languages_url"]
                     )
                     for repo in repos
-                ]
+                )
             )
         except (httpx.HTTPStatusError, httpx.ConnectError) as e:
             logger.info(e)
             return {}
-        langs = self.lang_sorter(list(languages_list), limit)
+        langs = self.lang_sorter(tuple(languages_list), limit)
         logger.info(langs)
         return langs
