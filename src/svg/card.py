@@ -40,7 +40,7 @@ class ComposeCard:
         return self._render(str(width), "140", f"0 0 {width} 140", *languages_data)
 
 
-class UserData:
+class UserCard:
     def __init__(self, languages: dict, theme_name: str, columns: int) -> None:
         self.languages = list(languages.keys())
         self.theme_name = themes.get(theme_name, Main)
