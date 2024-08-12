@@ -25,12 +25,13 @@ class Element:
     def render(self) -> Et.Element:
         self.element = Et.Element(self.tag, self.attrib, **self.extra)
         for sub_element in self.sub_elements:
-            if isinstance(sub_element, Element):
-                sub_element = sub_element.render()
-            elif isinstance(sub_element, Et.Element):
-                sub_element = sub_element
-            else:
-                raise NotElementClassError
+            match sub_element:
+                case Element():
+                    sub_element = sub_element.render()
+                case Et.Element():
+                    sub_element = sub_element
+                case _:
+                    raise NotElementClassError
             self.element.append(sub_element)
         if self.text:
             self.element.text = self.text
