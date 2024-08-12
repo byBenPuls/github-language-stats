@@ -8,7 +8,7 @@ from src.database.caching import CachedProgramLangRepo
 from src.database.redis import Redis
 from src.github.repos import ProgramLangRepo
 from src.svg import themes
-from src.svg.card import UserData
+from src.svg.card import UserCard
 
 router = APIRouter()
 
@@ -44,7 +44,7 @@ async def main_page(
         username, None
     )
     # cart_svg = CartSVGBuilder().build()
-    card = await UserData(languages, theme, columns).card()
+    card = await UserCard(languages, theme, columns).card()
     return HTMLResponse(
         content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
     )
