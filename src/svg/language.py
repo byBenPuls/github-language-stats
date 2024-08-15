@@ -8,7 +8,7 @@ class LanguagesGroup:
 
     @staticmethod
     def create_header() -> Element:
-        el_header = Element(
+        header = Element(
             tag="text",
             attrib={"text-align": "center"},
             x="0%",
@@ -16,8 +16,8 @@ class LanguagesGroup:
             fill="black",
             id="header",
         )
-        el_header.text = "Most Used Languages"
-        return el_header
+        header.text = "Most Used Languages"
+        return header
 
     @staticmethod
     def form_group(language: Element, x: int, y: int, animation_delay: int) -> Element:
