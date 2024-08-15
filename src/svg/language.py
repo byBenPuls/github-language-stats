@@ -7,7 +7,7 @@ class LanguagesGroup:
         self.columns = columns
 
     @staticmethod
-    def header() -> Element:
+    def create_header() -> Element:
         el_header = Element(
             tag="text",
             attrib={"text-align": "center"},
@@ -50,7 +50,7 @@ class LanguagesGroup:
     def build(self) -> Element:
         languages = self.langs()
         return Group(
-            Group(self.header(), transform="translate(25, 35)"),
+            Group(self.create_header(), transform="translate(25, 35)"),
             Group(
                 Element(*languages, tag="svg", x="25"),
                 transform="translate(0, 55)",
