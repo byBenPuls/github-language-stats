@@ -77,7 +77,7 @@ class LanguageLabel:
         return Group(self.create_circle(), self.create_label())
 
 
-def custom_data_text(msg: str) -> Element:
+def create_custom_data_text(msg: str) -> Element:
     message = Element(
         tag="text",
         attrib={"text-anchor": "middle", "dominant-baseline": "middle"},
