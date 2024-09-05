@@ -6,7 +6,7 @@ from src.svg import themes, Main
 from src.svg.elements import Element
 from src.svg.language import (
     LanguageLabel,
-    custom_data_text,
+    create_custom_data_text,
     LanguagesGroup,
 )
 
@@ -55,5 +55,5 @@ class UserCard:
 
         if not lang_list:
             logger.info("Languages not found")
-            return main_card.visualize(custom_data_text("No languages found :("))
+            return main_card.visualize(create_custom_data_text("No languages found :("))
         return main_card.visualize(LanguagesGroup(self.columns, *lang_list).build())
