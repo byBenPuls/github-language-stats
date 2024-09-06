@@ -6,6 +6,7 @@ from starlette.responses import RedirectResponse, HTMLResponse, Response
 from src.container import get_container
 from src.database.caching import CachedProgramLangRepo
 from src.database.redis import Redis
+from src.exceptions import NotFoundUserError, RequestLimitError, TokenInvalidError
 from src.github.repos import ProgramLangRepo
 from src.svg import themes
 from src.svg.card import UserCard
@@ -40,11 +41,16 @@ async def main_page(
         return RedirectResponse("https://github.com/byBenPuls")
     # TODO: у тебя обработка логики и сборка свг файла происходит в одном месте. Надо делить
     # cart = await GetLangCart().execute(username)
-    languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(
-        username, None
-    )
+    exception = None
+    try:
+        languages = await CachedProgramLangRepo(db, ProgramLangRepo()).fetch_lang(
+            username, None
+        )
+    except (NotFoundUserError, RequestLimitError, TokenInvalidError) as e:
+        languages = {}
+        exception = e
     # cart_svg = CartSVGBuilder().build()
-    card = await UserCard(languages, theme, columns).card()
+    card = await UserCard(languages, theme, columns, exception).card()
     return HTMLResponse(
         content=card, status_code=HTTPStatus.OK, media_type="image/svg+xml"
     )
