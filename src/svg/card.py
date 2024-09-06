@@ -41,10 +41,17 @@ class ComposeCard:
 
 
 class UserCard:
-    def __init__(self, languages: dict, theme_name: str, columns: int) -> None:
+    def __init__(
+        self,
+        languages: dict,
+        theme_name: str,
+        columns: int,
+        exception: Exception | None = None,
+    ) -> None:
         self.languages = list(languages.keys())
         self.theme_name = themes.get(theme_name, Main)
         self.columns = columns
+        self.exception = exception
 
     async def card(self) -> bytes:
         lang_list = [
@@ -52,8 +59,12 @@ class UserCard:
             for lang in self.languages
         ]
         main_card = ComposeCard(theme=self.theme_name, count_columns=self.columns)
+        user_has_languages = len(lang_list)
 
-        if not lang_list:
-            logger.info("Languages not found")
+        if self.exception:
+            logger.error(self.exception)
+            return main_card.visualize(create_custom_data_text(str(self.exception)))
+        if not user_has_languages:
+            logger.warning("Languages not found")
             return main_card.visualize(create_custom_data_text("No languages found :("))
         return main_card.visualize(LanguagesGroup(self.columns, *lang_list).build())
