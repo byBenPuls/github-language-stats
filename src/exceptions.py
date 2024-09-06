@@ -18,3 +18,7 @@ class NotElementClassError(Exception):
 
 class EmptyElementTagError(Exception):
     pass
+
+
+class TokenInvalidError(Exception):
+    pass
