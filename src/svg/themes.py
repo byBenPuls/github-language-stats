@@ -1,6 +1,23 @@
 from xml.etree import ElementTree as Et
 
 
+"""
+class CssGenerator:
+    def __init__(self, code: dict[str, dict[str, str]]) -> None:
+        self.code = code
+
+    def serialize_tags(self):
+        pass
+
+   def create_selectors(self):
+       pass
+
+    def build_code(self) -> Element:
+        css_tag = Element(tag="style")
+        return css_tag
+"""
+
+
 def css(
     header_fill: str = "#2f80ed",
     lang_name_fill: str = "#434d58",
@@ -10,9 +27,9 @@ def css(
     # TODO это лучше константой наверх вынести + билдить через .format(headers, ...)
     style.text = (
         """
-        #header {
-                font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-                fill: """
+            #header {
+                    font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+                    fill: """
         + header_fill
         + """;
             animation: fadeInAnimation 0.8s ease-in-out forwards;
@@ -95,14 +112,14 @@ class BaseTheme:
         self.width = str(int(width) - 1)
         self.root = []
 
-    def insert(self):
+    def insert_css_text_colors(self):
         self.root.append(
             css(header_fill="#2f80ed", lang_name_fill="#434d58", stat_fill="#434d58")
         )
         self.root.append(background(width=self.width))
 
     def card(self):
-        self.insert()
+        self.insert_css_text_colors()
         return self.root
 
 
@@ -141,7 +158,7 @@ class Gradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         self.root.append(
             GradientGenerator(0, (5, "#e96443"), (95, "#904e95")).generate()
         )
@@ -159,7 +176,7 @@ class Dark(BaseTheme):
             css(header_fill="#58A6FF", lang_name_fill="#C3D1D9", stat_fill="#C3D1D9")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         self.root.append(
             background(width=self.width, fill="#0D1117", attrib={"stroke-opacity": "1"})
         )
@@ -172,7 +189,7 @@ class Monokai(BaseTheme):
             css(header_fill="#eb1f6a", lang_name_fill="#DEE2E4", stat_fill="#DEE2E4")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         self.root.append(
             background(width=self.width, fill="#272822", attrib={"stroke-opacity": "1"})
         )
@@ -185,7 +202,7 @@ class AmbientGradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         gradient = GradientGenerator(
             35, (0, "#4158d0"), (50, "#c850c0"), (100, "#ffcc70")
         ).generate()
@@ -205,7 +222,7 @@ class OceanBlueGradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         gradient = GradientGenerator(35, (0, "#2E3192"), (100, "#1BFFFF")).generate()
         self.root.append(gradient)
         self.root.append(
@@ -222,7 +239,7 @@ class EternalConstanceGradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         gradient = GradientGenerator(0, (5, "#09203F"), (95, "#537895")).generate()
         self.root.append(gradient)
         self.root.append(
@@ -239,7 +256,7 @@ class ViceCityGradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         gradient = GradientGenerator(0, (5, "#3494e6"), (95, "#ec6ead")).generate()
         self.root.append(gradient)
         self.root.append(
@@ -256,7 +273,7 @@ class PurpinkGradient(BaseTheme):
             css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
-    def insert(self):
+    def insert_css_text_colors(self):
         gradient = GradientGenerator(0, (5, "#7f00ff"), (95, "#e100ff")).generate()
         self.root.append(gradient)
         self.root.append(
