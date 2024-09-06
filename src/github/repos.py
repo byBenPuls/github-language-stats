@@ -45,5 +45,4 @@ class ProgramLangRepo:
             logger.info(e)
             return {}
         langs = self.lang_sorter(tuple(languages_list), limit)
-        logger.info(langs)
         return langs
