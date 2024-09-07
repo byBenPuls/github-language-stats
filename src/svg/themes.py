@@ -1,95 +1,57 @@
 from xml.etree import ElementTree as Et
 
-
-"""
-class CssGenerator:
-    def __init__(self, code: dict[str, dict[str, str]]) -> None:
-        self.code = code
-
-    def serialize_tags(self):
-        pass
-
-   def create_selectors(self):
-       pass
-
-    def build_code(self) -> Element:
-        css_tag = Element(tag="style")
-        return css_tag
-"""
+from src.svg.css import CssBuilder
 
 
-def css(
-    header_fill: str = "#2f80ed",
-    lang_name_fill: str = "#434d58",
-    stat_fill: str = "#434d58",
+def generate_css(
+        header_fill: str = "#2f80ed",
+        lang_name_fill: str = "#434d58",
+        stat_fill: str = "#434d58",
 ):
-    style = Et.Element("style")
-    # TODO это лучше константой наверх вынести + билдить через .format(headers, ...)
-    style.text = (
-        """
-            #header {
-                    font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
-                    fill: """
-        + header_fill
-        + """;
-            animation: fadeInAnimation 0.8s ease-in-out forwards;
-    }
-
-    @supports(-moz-appearance: auto) {
-            .header { font-size: 15.5px; }
-    }
-
-    #lang-name {
-        font: 500 12px "Segoe UI", Ubuntu, Sans-Serif;
-        fill: """
-        + lang_name_fill
-        + """;
-    }
-
-    #bold {
-        font-weight: 700;
-    }
-
-    #stat {
-        font: 700 16px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
-        fill: """
-        + stat_fill
-        + """;
-        animation: fadeInAnimation 0.5s ease-in-out forwards;
-    }
-
-     @supports(-moz-appearance: auto) {
-      #stat { font-size:13px; }
-    }
-
-    #stagger {
-        opacity: 0;
-        animation: fadeInAnimation 0.3s ease-in-out forwards;
-    }
-
-    @keyframes fadeInAnimation {
-        from {
-        opacity: 0;
-        }
-        to {
-        opacity: 1;
+    css_styles = {
+        "#header": {
+            "font": "600 18px 'Segoe UI', Ubuntu, Sans-Serif",
+            "fill": header_fill,
+            "animation": "fadeInAnimation 0.8s ease-in-out forwards"
+        },
+        "#lang-name": {
+            "font": "500 12px 'Segoe UI', Ubuntu, Sans-Serif",
+            "fill": lang_name_fill
+        },
+        "#bold": {
+            "font-weight": "700"
+        },
+        "#stat": {
+            "font": "700 16px 'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif",
+            "fill": stat_fill,
+            "animation": "fadeInAnimation 0.5s ease-in-out forwards",
+        },
+        "#stagger": {
+            "opacity": "0",
+            "animation": "fadeInAnimation 0.3s ease-in-out forwards"
+        },
+        "@supports(-moz-appearance: auto)": {
+            ".header": {"font-size": "15.5px"},
+            "#stat": {"font-size": "13px"}
+        },
+        "@keyframes fadeInAnimation": {
+            "from": {"opacity": "0"},
+            "to": {"opacity": "1"}
         }
     }
-    """
-    )
 
-    return style
+    return CssBuilder(css_styles).build()
 
 
 def background(
-    x: str = "0.5",
-    y: str = "0.5",
-    rx: str = "4.5",
-    height: str = "99",
-    stroke: str = "#e4e2e2",
-    width: str = "299",
-    fill: str = "#fffefe",
-    attrib=None,
+        x: str = "0.5",
+        y: str = "0.5",
+        rx: str = "4.5",
+        height: str = "99",
+        stroke: str = "#e4e2e2",
+        width: str = "299",
+        fill: str = "#fffefe",
+        attrib=None,
 ):
     if attrib is None:
         attrib = {}
@@ -114,7 +76,7 @@ class BaseTheme:
 
     def insert_css_text_colors(self):
         self.root.append(
-            css(header_fill="#2f80ed", lang_name_fill="#434d58", stat_fill="#434d58")
+            generate_css(header_fill="#2f80ed", lang_name_fill="#434d58", stat_fill="#434d58")
         )
         self.root.append(background(width=self.width))
 
@@ -148,14 +110,14 @@ class GradientGenerator:
 class Main(BaseTheme):
     def __init__(self, width) -> None:
         super().__init__(width)
-        self.root.append(css())
+        self.root.append(generate_css())
 
 
 class Gradient(BaseTheme):
     def __init__(self, width) -> None:
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
@@ -173,7 +135,7 @@ class Dark(BaseTheme):
     def __init__(self, width) -> None:
         super().__init__(width)
         self.root.append(
-            css(header_fill="#58A6FF", lang_name_fill="#C3D1D9", stat_fill="#C3D1D9")
+            generate_css(header_fill="#58A6FF", lang_name_fill="#C3D1D9", stat_fill="#C3D1D9")
         )
 
     def insert_css_text_colors(self):
@@ -186,7 +148,7 @@ class Monokai(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#eb1f6a", lang_name_fill="#DEE2E4", stat_fill="#DEE2E4")
+            generate_css(header_fill="#eb1f6a", lang_name_fill="#DEE2E4", stat_fill="#DEE2E4")
         )
 
     def insert_css_text_colors(self):
@@ -199,7 +161,7 @@ class AmbientGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
@@ -219,7 +181,7 @@ class OceanBlueGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
@@ -236,7 +198,7 @@ class EternalConstanceGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
@@ -253,7 +215,7 @@ class ViceCityGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
@@ -270,7 +232,7 @@ class PurpinkGradient(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
+            generate_css(header_fill="#fff", lang_name_fill="#fff", stat_fill="#fff")
         )
 
     def insert_css_text_colors(self):
