@@ -29,7 +29,7 @@ class Element:
                 case Element():
                     sub_element = sub_element.render()
                 case Et.Element():
-                    sub_element = sub_element
+                    pass
                 case _:
                     raise NotElementClassError
             self.element.append(sub_element)
