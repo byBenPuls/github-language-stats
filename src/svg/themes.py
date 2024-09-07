@@ -4,23 +4,21 @@ from src.svg.css import CssBuilder
 
 
 def generate_css(
-        header_fill: str = "#2f80ed",
-        lang_name_fill: str = "#434d58",
-        stat_fill: str = "#434d58",
+    header_fill: str = "#2f80ed",
+    lang_name_fill: str = "#434d58",
+    stat_fill: str = "#434d58",
 ):
     css_styles = {
         "#header": {
             "font": "600 18px 'Segoe UI', Ubuntu, Sans-Serif",
             "fill": header_fill,
-            "animation": "fadeInAnimation 0.8s ease-in-out forwards"
+            "animation": "fadeInAnimation 0.8s ease-in-out forwards",
         },
         "#lang-name": {
             "font": "500 12px 'Segoe UI', Ubuntu, Sans-Serif",
-            "fill": lang_name_fill
+            "fill": lang_name_fill,
         },
-        "#bold": {
-            "font-weight": "700"
-        },
+        "#bold": {"font-weight": "700"},
         "#stat": {
             "font": "700 16px 'Segoe UI', Ubuntu, 'Helvetica Neue', Sans-Serif",
             "fill": stat_fill,
@@ -28,30 +26,30 @@ def generate_css(
         },
         "#stagger": {
             "opacity": "0",
-            "animation": "fadeInAnimation 0.3s ease-in-out forwards"
+            "animation": "fadeInAnimation 0.3s ease-in-out forwards",
         },
         "@supports(-moz-appearance: auto)": {
             ".header": {"font-size": "15.5px"},
-            "#stat": {"font-size": "13px"}
+            "#stat": {"font-size": "13px"},
         },
         "@keyframes fadeInAnimation": {
             "from": {"opacity": "0"},
-            "to": {"opacity": "1"}
-        }
+            "to": {"opacity": "1"},
+        },
     }
 
     return CssBuilder(css_styles).build()
 
 
 def background(
-        x: str = "0.5",
-        y: str = "0.5",
-        rx: str = "4.5",
-        height: str = "99",
-        stroke: str = "#e4e2e2",
-        width: str = "299",
-        fill: str = "#fffefe",
-        attrib=None,
+    x: str = "0.5",
+    y: str = "0.5",
+    rx: str = "4.5",
+    height: str = "99",
+    stroke: str = "#e4e2e2",
+    width: str = "299",
+    fill: str = "#fffefe",
+    attrib=None,
 ):
     if attrib is None:
         attrib = {}
@@ -76,7 +74,9 @@ class BaseTheme:
 
     def insert_css_text_colors(self):
         self.root.append(
-            generate_css(header_fill="#2f80ed", lang_name_fill="#434d58", stat_fill="#434d58")
+            generate_css(
+                header_fill="#2f80ed", lang_name_fill="#434d58", stat_fill="#434d58"
+            )
         )
         self.root.append(background(width=self.width))
 
@@ -135,7 +135,9 @@ class Dark(BaseTheme):
     def __init__(self, width) -> None:
         super().__init__(width)
         self.root.append(
-            generate_css(header_fill="#58A6FF", lang_name_fill="#C3D1D9", stat_fill="#C3D1D9")
+            generate_css(
+                header_fill="#58A6FF", lang_name_fill="#C3D1D9", stat_fill="#C3D1D9"
+            )
         )
 
     def insert_css_text_colors(self):
@@ -148,7 +150,9 @@ class Monokai(BaseTheme):
     def __init__(self, width):
         super().__init__(width)
         self.root.append(
-            generate_css(header_fill="#eb1f6a", lang_name_fill="#DEE2E4", stat_fill="#DEE2E4")
+            generate_css(
+                header_fill="#eb1f6a", lang_name_fill="#DEE2E4", stat_fill="#DEE2E4"
+            )
         )
 
     def insert_css_text_colors(self):
