@@ -38,8 +38,8 @@ class Element:
         return self.element
 
     def __repr__(self):
-        return "Element({}, {}, {}, {})".format(
-            self.tag, self.attrib, self.sub_elements, self.extra
+        return "Element({}, {}, {}, {}, '{}')".format(
+            self.tag, self.attrib, self.sub_elements, self.extra, self.text
         )
 
 
