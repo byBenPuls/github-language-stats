@@ -5,7 +5,7 @@ from src.svg.language import LanguageLabel
 
 class Column:
     def __init__(
-        self, x: int | str, y: int | str, width: int | str, height: int | str, fill: str
+            self, x: int | str, y: int | str, width: int | str, height: int | str, fill: str
     ) -> None:
         self.x = str(x)
         self.y = str(y)
@@ -72,14 +72,17 @@ class BarChartDiagram:
             for k, v in languages.items()
         }
 
+        animation_delay = 225
+
         self.svg_columns = (
-            Column(
-                x * 15,
-                f"{100 - langs[k]["percentage"]}%",
-                "10",
-                f"{langs[k]["percentage"]}%",
-                langs[k]["color"],
-            ).render()
+            Group(
+                Column(
+                    x * 20,
+                    f"{100 - langs[k]["percentage"]}%",
+                    "17",
+                    f"{langs[k]["percentage"]}%",
+                    langs[k]["color"],
+                ).render()).render()
             for x, k in enumerate(langs)
         )
 
@@ -87,4 +90,5 @@ class BarChartDiagram:
         return BarChartLegend(self.languages).build()
 
     def build(self) -> Element:
-        return Group(*self.svg_columns, self.build_a_chart_legend())
+        return Group(Group(*self.svg_columns, id="stagger",
+                           style=f"animation-delay: {450}ms"), self.build_a_chart_legend())
