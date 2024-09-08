@@ -4,11 +4,9 @@ from xml.etree import ElementTree as Et
 from src.constants import COLORS
 from src.svg import themes, Main
 from src.svg.elements import Element
-from src.svg.language import (
-    LanguageLabel,
-    create_custom_data_text,
-    LanguagesGroup,
-)
+from src.svg.diagrams.list import LanguagesGroup
+from src.svg.language import LanguageLabel
+from src.svg.utils import create_custom_data_text
 
 logger = logging.getLogger("uvicorn.info")
 
@@ -54,10 +52,10 @@ class UserCard:
         self.exception = exception
 
     async def card(self) -> bytes:
-        lang_list = [
+        lang_list = tuple(
             LanguageLabel(lang, COLORS[lang]["color"]).build()
             for lang in self.languages
-        ]
+        )
         main_card = ComposeCard(theme=self.theme_name, count_columns=self.columns)
         user_has_languages = len(lang_list)
 
