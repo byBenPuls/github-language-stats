@@ -27,7 +27,11 @@ class ProgramLangRepo:
         for language_response in langs:
             for name, count in language_response.items():
                 result[name] += count
-        return dict(Counter(dict(result)).most_common(numbers_of_languages_limiter))
+        result_value = dict(
+            Counter(dict(result)).most_common(numbers_of_languages_limiter)
+        )
+        logger.info(result_value)
+        return result_value
 
     async def get_languages(self, limit: int, username: str) -> dict[str, int | float]:
         try:
