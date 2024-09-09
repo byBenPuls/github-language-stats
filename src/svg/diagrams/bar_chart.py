@@ -72,7 +72,6 @@ class BarChartDiagram:
             for k, v in languages.items()
         }
 
-        animation_delay = 225
 
         self.svg_columns = (
             Group(
