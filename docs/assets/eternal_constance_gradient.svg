@@ -1,0 +1,45 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="140" viewBox="0 0 300 140" fill="none" role="img"><style>
+        #header {
+                font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+                fill: #fff;
+            animation: fadeInAnimation 0.8s ease-in-out forwards;
+    }
+
+    @supports(-moz-appearance: auto) {
+            .header { font-size: 15.5px; }
+    }
+
+    #lang-name {
+        font: 500 12px "Segoe UI", Ubuntu, Sans-Serif;
+        fill: #fff;
+    }
+
+    #bold {
+        font-weight: 700;
+    }
+
+    #stat {
+        font: 700 16px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
+        fill: #fff;
+        animation: fadeInAnimation 0.5s ease-in-out forwards;
+    }
+
+     @supports(-moz-appearance: auto) {
+      #stat { font-size:13px; }
+    }
+
+    #stagger {
+        opacity: 0;
+        animation: fadeInAnimation 0.3s ease-in-out forwards;
+    }
+
+    @keyframes fadeInAnimation {
+        from {
+        opacity: 0;
+        }
+        to {
+        opacity: 1;
+        }
+    }
+    </style><defs xmlns="http://www.w3.org/2000/svg"><linearGradient id="gradient" gradientTransform="rotate(0)" gradientUnits="userSpaceOnUse"><stop stop-color="#09203F" offset="5%" /><stop stop-color="#537895" offset="95%" /></linearGradient></defs><rect stroke-opacity="1" xmlns="http://www.w3.org/2000/svg" x="0.5" y="0.5" rx="4.5" height="99%" stroke="#e4e2e2" width="299" fill="url(#gradient)" /><g transform="translate(0, 0)"><g transform="translate(25, 35)"><text text-align="center" x="0%" y="0%" fill="black" id="header">Most Used Languages</text></g><g transform="translate(0, 55)"><svg x="25"><g id="stagger" style="animation-delay: 450ms"><g transform="translate(0, 0)"><g><circle cx="5" cy="6" fill="#3572A5" r="5" /><text x="15" y="10" fill="black" id="lang-name">Python</text></g></g></g><g id="stagger" style="animation-delay: 600ms"><g transform="translate(0, 25)"><g><circle cx="5" cy="6" fill="#f1e05a" r="5" /><text x="15" y="10" fill="black" id="lang-name">JavaScript</text></g></g></g><g id="stagger" style="animation-delay: 750ms"><g transform="translate(0, 50)"><g><circle cx="5" cy="6" fill="#3178c6" r="5" /><text x="15" y="10" fill="black" id="lang-name">TypeScript</text></g></g></g><g id="stagger" style="animation-delay: 450ms"><g transform="translate(150, 0)"><g><circle cx="5" cy="6" fill="#000080" r="5" /><text x="15" y="10" fill="black" id="lang-name">Lua</text></g></g></g><g id="stagger" style="animation-delay: 600ms"><g transform="translate(150, 25)"><g><circle cx="5" cy="6" fill="#89e051" r="5" /><text x="15" y="10" fill="black" id="lang-name">Shell</text></g></g></g><g id="stagger" style="animation-delay: 750ms"><g transform="translate(150, 50)"><g><circle cx="5" cy="6" fill="#178600" r="5" /><text x="15" y="10" fill="black" id="lang-name">C#</text></g></g></g><g id="stagger" style="animation-delay: 450ms"><g transform="translate(300, 0)"><g><circle cx="5" cy="6" fill="#7e7eff" r="5" /><text x="15" y="10" fill="black" id="lang-name">Nix</text></g></g></g><g id="stagger" style="animation-delay: 600ms"><g transform="translate(300, 25)"><g><circle cx="5" cy="6" fill="#384d54" r="5" /><text x="15" y="10" fill="black" id="lang-name">Dockerfile</text></g></g></g><g id="stagger" style="animation-delay: 750ms"><g transform="translate(300, 50)"><g><circle cx="5" cy="6" fill="#e34c26" r="5" /><text x="15" y="10" fill="black" id="lang-name">HTML</text></g></g></g></svg></g></g></svg>
