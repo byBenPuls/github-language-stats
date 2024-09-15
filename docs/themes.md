@@ -11,3 +11,7 @@
 |    Ocean Blue Gradient     | ![](assets/ocean_blue_gradient.svg)        |
 | Eternal Constance Gradient | ![](assets/eternal_constance_gradient.svg) |
 |      Purpink Gradient      | ![](assets/purpink_gradient.svg)           |
+
+
+> [!WARNING]
+> The appearance of the card themes taken from [github-readme-stats](https://github.com/anuraghazra/github-readme-stats).
