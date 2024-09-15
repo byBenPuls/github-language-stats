@@ -13,5 +13,5 @@
 |      Purpink Gradient      | ![](assets/purpink_gradient.svg)           |
 
 
-> [!WARNING]
+> [!IMPORTANT]
 > The appearance of the card themes taken from [github-readme-stats](https://github.com/anuraghazra/github-readme-stats).
