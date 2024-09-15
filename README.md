@@ -4,25 +4,25 @@
 
 Link:
 
-`![](https://github.benpuls.ru/?username=<YOUR USERNAME>&theme=<THEME>)`
+`![](https://<YOUR DOMAIN>/?username=<YOUR USERNAME>&theme=<THEME>)`
 
 Example:
 
-`![](https://github.benpuls.ru/?username=byBenPuls&theme=ambient_gradient)`
+`![](https://example.com/?username=byBenPuls&theme=ambient_gradient)`
 
 ## Available themes:
 
-|            Name            | Preview                                                                             |
-|:--------------------------:|-------------------------------------------------------------------------------------|
-|            Main            | ![](https://github.benpuls.ru/?username=byBenPuls)                                  |
-|            Dark            | ![](https://github.benpuls.ru/?username=byBenPuls&theme=dark)                       |
-|          Monokai           | ![](https://github.benpuls.ru/?username=byBenPuls&theme=monokai)                    |
-|          Gradient          | ![](https://github.benpuls.ru/?username=byBenPuls&theme=gradient)                   |
-|      Ambient Gradient      | ![](https://github.benpuls.ru/?username=byBenPuls&theme=ambient_gradient)           |
-|     Vice City Gradient     | ![](https://github.benpuls.ru/?username=byBenPuls&theme=vice_city_gradient)         |
-|    Ocean Blue Gradient     | ![](https://github.benpuls.ru/?username=byBenPuls&theme=ocean_blue_gradient)        |
-| Eternal Constance Gradient | ![](https://github.benpuls.ru/?username=byBenPuls&theme=eternal_constance_gradient) |
-|      Purpink Gradient      | ![](https://github.benpuls.ru/?username=byBenPuls&theme=purpink_gradient)           |
+|            Name            | Preview                                         |
+|:--------------------------:|-------------------------------------------------|
+|            Main            | ![](docs/assets/main.svg)                       |
+|            Dark            | ![](docs/assets/dark.svg)                       |
+|          Monokai           | ![](docs/assets/monokai.svg)                    |
+|          Gradient          | ![](docs/assets/gradient.svg)                   |
+|      Ambient Gradient      | ![](docs/assets/ambient_gradient.svg)           |
+|     Vice City Gradient     | ![](docs/assets/vice_city_gradient.svg)         |
+|    Ocean Blue Gradient     | ![](docs/assets/ocean_blue_gradient.svg)        |
+| Eternal Constance Gradient | ![](docs/assets/eternal_constance_gradient.svg) |
+|      Purpink Gradient      | ![](docs/assets/purpink_gradient.svg)           |
 
 
 ## Installation
