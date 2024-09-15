@@ -46,4 +46,5 @@ Without make:
 docker-compose build && docker-compose up
 ```
 
-### Full documentation available in the docs folder
+> [!TIP]
+> Full documentation available in the docs folder
