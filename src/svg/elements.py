@@ -44,5 +44,5 @@ class Element:
 
 
 class Group(Element):
-    def __init__(self, *sub_elements, **extra: str) -> None:
+    def __init__(self, *sub_elements: Element, **extra: str) -> None:
         super().__init__(tag="g", *sub_elements, **extra)
