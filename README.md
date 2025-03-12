@@ -1,16 +1,23 @@
-# GitHub profile language statistics
+# 🚀 GitHub Profile Language Statistics
 
-![](https://i.imgur.com/Tb0vwS4.gif)
+![Preview](https://i.imgur.com/Tb0vwS4.gif)
 
-Link:
+*Easily display a dynamic language usage chart on your GitHub profile!*
 
-`![](https://<YOUR DOMAIN>/?username=<YOUR USERNAME>&theme=<THEME>)`
+## 🌐 Get Your Badge
 
-Example:
+```md
+![](https://<YOUR DOMAIN>/?username=<YOUR USERNAME>&theme=<THEME>)
+```
 
-`![](https://example.com/?username=byBenPuls&theme=ambient_gradient)`
+### Example:
+```md
+![](https://example.com/?username=byBenPuls&theme=ambient_gradient)
+```
 
-## Available themes:
+## 🎨 Themes
+
+Choose from a variety of stunning themes:
 
 |            Name            | Preview                                         |
 |:--------------------------:|-------------------------------------------------|
@@ -24,27 +31,27 @@ Example:
 | Eternal Constance Gradient | ![](docs/assets/eternal_constance_gradient.svg) |
 |      Purpink Gradient      | ![](docs/assets/purpink_gradient.svg)           |
 
+## 🛠️ Installation
 
-## Installation
+Get started in just a few steps:
 
-1. Copy `example.env` file in `.env`
-
-```shell
+```sh
+# 1. Copy environment configuration
 cp example.env .env
-```
-2. Setup docker containers
 
-With make:
-
-```make
+# 2. Start the application with Docker
+# Using Makefile:
 make run
-```
 
-Without make:
-
-```
+# Without Makefile:
 docker-compose build && docker-compose up
 ```
 
-> [!TIP]
-> Full documentation available in the docs folder
+## 📖 Documentation
+
+For advanced setup, customization, and API details, check out the [docs](docs/) folder.
+
+## ⭐ Star This Project!
+
+If you find this useful, give it a **star** ⭐ and help others discover it! 🚀
+
